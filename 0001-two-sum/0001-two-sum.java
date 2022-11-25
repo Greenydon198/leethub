@@ -1,29 +1,23 @@
 class Solution {
     public int[] twoSum(int[] a, int k) {
-        int b[] = a.clone();
-        Arrays.sort(a);
-        int l=0,r=a.length-1;
-        while(l<r){
-            if(a[l]+a[r]==k){
-                l=a[l];r=a[r];
-                break;
-            }
-            if(a[l]+a[r]>k)
-                r--;
-            if(a[l]+a[r]<k)
-                l++;
+        int n = a.length;
+        int b[][] = new int[n][2];
+        for(int i=0;i<n;i++){
+            b[i][0]=a[i];
+            b[i][1]=i;
         }
-        int li=0,ri=0;
-        for(int i=0;i<b.length;i++){
-            if(l==b[i]){
-                li=i;
-                break;}
+        Arrays.sort(b,(x,y)->(x[0]>=y[0])?1:-1);
+        for(int i=0;i<n;i++)
+        System.out.println(b[i][0]+" "+b[i][1]);
+        int s=0,e=n-1;
+        while(s<e){
+            if(b[s][0]+b[e][0]==k)
+                return new int[]{b[s][1],b[e][1]};
+            else if(b[s][0]+b[e][0]>k)
+                e--;
+            else
+                s++;
         }
-        for(int i=b.length-1;i>0;i--){
-            if(r==b[i]){
-                ri=i;
-                break;}
-        }
-        return new int[]{li,ri};
+        return new int[]{1,2};
     }
 }
