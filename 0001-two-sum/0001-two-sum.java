@@ -7,8 +7,6 @@ class Solution {
             b[i][1]=i;
         }
         Arrays.sort(b,(x,y)->(x[0]>=y[0])?1:-1);
-        for(int i=0;i<n;i++)
-        System.out.println(b[i][0]+" "+b[i][1]);
         int s=0,e=n-1;
         while(s<e){
             if(b[s][0]+b[e][0]==k)
