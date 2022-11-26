@@ -1,17 +1,15 @@
 class Solution {
     public void sortColors(int[] a) {
-        for(int i=0;i<a.length;i++){
-            int m=3,t=-1;
-            for(int j=i;j<a.length;j++)
-                if(a[j]<m){
-                    m=a[j];
-                    t=j;
-                }
-            if(t!=-1){
-                a[t]=a[i];
-                a[i]=m;
-            }
+        int c0=0,c1=0,n=a.length;
+        for(int i=0;i<n;i++){
+            if(a[i]==0)c0++;
+            else if(a[i]==1)c1++;
         }
-        System.out.println(Arrays.toString(a));
+        for(int i=0;i<n;i++){
+            if(c0>i)a[i]=0;
+            else if(c0+c1>i)a[i]=1;
+            else
+                a[i]=2;
+        }
     }
 }
