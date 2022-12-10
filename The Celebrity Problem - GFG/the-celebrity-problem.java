@@ -33,7 +33,7 @@ class GFG{
 class Solution
 { 
     //Function to find if there is a celebrity in the party or not.
-    int celebrity(int a[][], int n)
+    int celebrity1(int a[][], int n)
     {
     	// code here 
     	for(int i=0;i<n;i++){
@@ -49,4 +49,23 @@ class Solution
 		}
 		return -1;
     }
+    int celebrity(int a[][], int n){
+		for(int i=0;i<2;i++){
+			for(int j=0;j<n;j++){
+				if(i==j)continue;
+				if(a[i][j]==1){
+					boolean f=true;
+					for(int k=0;k<n;k++){
+						if(k==j)continue;
+						if(a[j][k]!=0 || a[k][j]!=1){
+						f=false;
+						break;
+						}
+					}
+					if(f)return j;
+				}
+			}
+		}
+		return -1;
+	}
 }
