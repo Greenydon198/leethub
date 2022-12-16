@@ -39,19 +39,17 @@ class GfG
 
 class Solution
 {
-    public boolean findPair(int A[], int n, int k)
+    public boolean findPair(int a[], int n, int k)
     {
         //code here.
-        Arrays.sort(A);
-		int s=0,e=1;
-		while(e!=n){
-			if(A[e]-A[s]==k)
-				return true;
-			else if(s+1==e || A[e]-A[s]<k)
-				e++;
-			else if(A[e]-A[s]>k)
-				s++;			
+        Map<Integer,Integer> hm = new HashMap<>();
+		for(int i=0;i<n;i++){
+		    if(hm.containsKey(a[i]))hm.put(a[i],hm.get(a[i])+1);
+			else hm.put(a[i],1);
 		}
+		for(int i:hm.keySet())
+			if(k!=0 && hm.containsKey(k+i))return true;
+			else if(k==0 && hm.get(i)>1)return true;
 		return false;
     }
 }
