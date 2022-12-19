@@ -41,41 +41,14 @@ public class Main {
 //for(arr)to check the missing element
 class Solution {
     int findMissing(int[] a, int n) {
-        // code here
         if(n==2){
-            return (a[1]+a[0])/2;
+            return (a[0]+a[1])/2;
         }
-        if(n==3){
-            if(a[1]-a[0]<a[2]-a[1]){
-                return a[1]+a[1]-a[0];
-            }
-            else
-                return a[2]-a[1]+a[0];
-        }
-        int freq[] = new int[2];//to check the frequency if diff
-        int ap = 0;//to store the difference
-        freq[0] = a[1]-a[0];//store the difference of 1st two elements
-        freq[1] = -1;
-        
-        for(int i=1;i<n-1;i++){
-            int diff = a[i+1]-a[i];// calculate the diff
-            if(diff==freq[0]){
-                ap = freq[0];
-                break;
-            }
-            else if(freq[1]==-1){
-                freq[1] = diff;
-            }
-            else{
-                ap = freq[1];
-                break;
-            }
-        }
-        
+        int AP = Math.min(a[1]-a[0],a[2]-a[1]);
         for(int i=0;i<n-1;i++){
-            if(a[i]+ap!=a[i+1])return a[i]+ap;// to check the missing element
+            if(a[i]+AP!=a[i+1])
+                return a[i]+AP;
         }
-        
         return 0;
     }
 }
