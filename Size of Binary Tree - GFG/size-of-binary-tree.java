@@ -111,8 +111,17 @@ class GfG {
 /*Complete The Function Below*/
 class Tree
 {
+    static int n=0;
+    static void size(Node root){
+        if(root==null)return;
+        
+        n++;
+        size(root.left);
+        size(root.right);
+    }
 	public static int getSize(Node root){
-        if(root==null)return 0;
-        return 1+getSize(root.left)+getSize(root.right);
+        n=0;
+        size(root);
+        return n;
     }
 }
