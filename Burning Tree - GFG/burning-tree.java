@@ -145,16 +145,16 @@ class Solution
         Node block = null;
         int max = 0;
         for(int i=0;i<path.size();i++){
-            int temp = down(path.get(i),0,block);
+            int temp = down(path.get(i),block);
             max = Math.max(max,i+temp);
             // System.out.println(max +" "+temp+" "+path.get(i).data);
             block = path.get(i);
         }
         return max-1;
     }
-    public static int down(Node root,int d,Node block){
+    public static int down(Node root,Node block){
         if(root==null)return 0;
         if(root==block)return 0;
-        return 1+Math.max(down(root.left,d+1,block),down(root.right,d+1,block));
+        return 1+Math.max(down(root.left,block),down(root.right,block));
     }
 }
