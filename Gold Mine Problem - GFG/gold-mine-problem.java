@@ -33,6 +33,13 @@ class Solution{
     static int maxGold(int n, int m, int a[][])
     {
         // code here
+        int max = 0;
+		for(int i=0;i<n;i++)
+			max = Math.max(max,memo(i,0,a,new int[n][m]));
+		return max;
+		
+		/*
+		tabular approach
         int sto[][] = new int[n][m];
 		for(int j=m-1;j>=0;j--){
 			for(int i=0;i<n;i++){
@@ -50,5 +57,21 @@ class Solution{
 			max = Math.max(max,sto[i][0]);
 		}
 		return max;
+		*/
     }
+    
+    private static int memo(int i,int j,int a[][],int sto[][]){
+
+		if(i>=a.length || i<0 || j>=a[0].length || j<0)return 0;
+
+		if(sto[i][j]!=0)return sto[i][j];
+		
+		int updiag = memo(i-1,j+1,a,sto);
+		int right = memo(i,j+1,a,sto);
+		int downdiag = memo(i+1,j+1,a,sto);
+
+		sto[i][j] = a[i][j] + Math.max(updiag,Math.max(right,downdiag));
+
+		return sto[i][j];
+	}
 }
