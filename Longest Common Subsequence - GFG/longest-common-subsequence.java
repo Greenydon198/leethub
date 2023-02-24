@@ -32,20 +32,20 @@ class Solution
         // your code here
         char[] a = s1.toCharArray();
 		char[] b = s2.toCharArray();
-        // return memo(0,0,a,b,new Integer[x][y]);
+        return memo(0,0,a,b,new Integer[x][y]);
 
 		//tabular appraoch
-		int sto[][] = new int[x+1][y+1];
-		for(int i=1;i<=x;i++){
-			for(int j=1;j<=y;j++){
-				if(a[i-1]==b[j-1])sto[i][j] = 1 + sto[i-1][j-1];
-				else{
-					sto[i][j] = Math.max(sto[i-1][j],sto[i][j-1]);
-				}
-			}
-		}
+// 		int sto[][] = new int[x+1][y+1];
+// 		for(int i=1;i<=x;i++){
+// 			for(int j=1;j<=y;j++){
+// 				if(a[i-1]==b[j-1])sto[i][j] = 1 + sto[i-1][j-1];
+// 				else{
+// 					sto[i][j] = Math.max(sto[i-1][j],sto[i][j-1]);
+// 				}
+// 			}
+// 		}
 
-		return sto[x][y];
+// 		return sto[x][y];
     }
 
 	private static int memo(int i,int j,char[] a,char b[],Integer sto[][]){
