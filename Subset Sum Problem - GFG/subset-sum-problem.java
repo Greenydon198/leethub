@@ -38,7 +38,22 @@ class Solution{
 
     static Boolean isSubsetSum(int N, int a[], int k){
         // code here
-        return memo(0,a,k,new Boolean[a.length][k+1]);
+        // return memo(0,a,k,new Boolean[a.length][k+1]);
+        
+        //tabulation
+        boolean dp[][] = new boolean[a.length+1][k+1];
+        for(int i=0;i<=a.length;i++)
+            dp[i][0] = true;
+            
+        for(int i=a.length-1;i>=0;i--){
+            for(int j=1;j<=k;j++){
+                if(j-a[i]>=0 && j-a[i]<=k)
+                dp[i][j] = dp[i+1][j-a[i]];
+                dp[i][j] = dp[i][j] || dp[i+1][j];
+            }
+            // System.out.println(Arrays.toString(dp[i]));
+        }
+        return dp[0][k];
     }
     
     private static boolean memo(int i,int a[],int k,Boolean dp[][]){
