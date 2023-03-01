@@ -36,18 +36,18 @@ class GFG
 class Solution{
 
 
-    static Boolean isSubsetSum(int n, int a[], int k){
+    static Boolean isSubsetSum(int N, int a[], int k){
         // code here
-		return subsetSum(a,n-1,k,new Boolean[n][k+1]);
+        return memo(0,a,k,new Boolean[a.length][k+1]);
     }
     
-    public static boolean subsetSum(int[] a, int n, int k,Boolean sto[][]){
-		if(k==0)return true;
-		if(k<0 || n<0)return false;
-		
-		if(sto[n][k]!=null)return sto[n][k];
-		
-		sto[n][k] =  subsetSum(a,n-1,k-a[n],sto) || subsetSum(a,n-1,k,sto);
-		return sto[n][k];
+    private static boolean memo(int i,int a[],int k,Boolean dp[][]){
+        if(k==0)return true;
+        if(i==a.length || k<0)return false;
+        if(dp[i][k]!=null)return dp[i][k];
+        boolean yes = memo(i+1,a,k-a[i],dp);
+        boolean no = memo(i+1,a,k,dp);
+        
+        return dp[i][k] = yes || no;
     }
 }
