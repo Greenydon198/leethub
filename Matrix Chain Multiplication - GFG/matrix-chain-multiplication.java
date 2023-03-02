@@ -32,7 +32,30 @@ class Solution{
     static int matrixMultiplication(int n, int a[])
     {
         // code here
-        return memo(0,n-1,a,new Integer[a.length][a.length]);
+        // return memo(0,n-1,a,new Integer[a.length][a.length]);
+        
+        //tabulation
+        int dp[][] = new int[n][n];
+        
+        for(int d=0;d<n;d++){//d=diag
+            for(int s=0,e=d+1;e<n;s++,e++){
+                if(s+1==e)continue;
+            
+                int min = Integer.MAX_VALUE;
+                
+                for(int i=s+1;i<e;i++){
+                    int cut1 = dp[s][i];//memo(s,i,a,dp);
+                    int cut2 = dp[i][e];//memo(i,e,a,dp);
+                    int res = a[s]*a[i]*a[e] + cut1 + cut2;
+                    
+                    min = Math.min(min,res);
+                }
+            
+                dp[s][e] = min;
+                // System.out.println(Arrays.toString(dp[s]));
+            }
+        }
+        return dp[0][n-1];
     }
     
     private static int memo(int s,int e,int a[],Integer dp[][]){
