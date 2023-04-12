@@ -37,21 +37,18 @@ class GFG
 class Solution
 {
     //Function to find distance of nearest 1 in the grid for each cell.
-    
-    int x[] = {1,0,-1,0};
-	int y[] = {0,1,0,-1};
-	
     public int[][] nearest(int[][] a)
     {
         // Code here
-        
-		Queue<int[]> q = new LinkedList<>();
+        Queue<int[]> q = new LinkedList<>();
 		int n = a.length;
 		int m = a[0].length;
+		int x[] = {1,0,-1,0};
+		int y[] = {0,1,0,-1};
 		boolean visit[][] = new boolean[n][m];
 		for(int i=0;i<n;i++)
 			for(int j =0 ;j<m;j++)
-				if(a[i][j]==1 && !visit[i][j]){
+				if(a[i][j]==1){
 					q.add(new int[]{i,j});
 					visit[i][j] = true;
 				}
