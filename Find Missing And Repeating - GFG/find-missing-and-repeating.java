@@ -32,27 +32,18 @@ class GFG {
 class Solve {
     int[] findTwoElement(int a[], int n) {
         // code here
-        int ans[] = {0,0};
+        int dup = 0,miss =0;
         for(int i=0;i<n;i++){
-            while(a[i]!=i+1){
-                if(a[i] == a[a[i]-1]){
-                    ans[0] = a[i];
-                    break;
-                }
-                
-                int t = a[i];
-                a[i] = a[t-1];
-                a[t-1] = t;
-            }
-            
-            if(ans[0]!=0)break;
+            int x = Math.abs(a[i])-1;
+            if(a[x]>0)
+                a[x] *= -1;
+            else
+                dup = x + 1;
         }
         
-        long sum = 0;
-        for(int i:a)sum+=i;
-        sum = ((n*(n+1l))/2) - sum + ans[0];
-        ans[1] = (int)sum;
-        
-        return ans;
+        for(int i=0;i<n;i++)
+            if(a[i]>0)miss = i+1;
+            
+        return new int[]{dup,miss};
     }
 }
