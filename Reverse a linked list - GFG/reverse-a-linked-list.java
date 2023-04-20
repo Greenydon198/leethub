@@ -56,7 +56,7 @@ class GFG{
 /* linked list node class:
 
 class Node {
-    int value;
+    int data;
     Node next;
     Node(int value) {
         this.value = value;
@@ -71,15 +71,17 @@ class Solution
     Node reverseList(Node head)
     {
         // code here
-        if(head==null || head.next==null)return head;
-        Node p = null;
-        Node c = null;
-        while(head!=null){
-            c=head.next;
-            head.next=p;
-            p=head;
-            head=c;
+        return reverse(null,head,head.next);
+    }
+    
+    Node reverse(Node p,Node head,Node f){
+        if(head==null)return p;
+
+        head.next = p;
+        
+        if(f==null){
+            return head;
         }
-        return p;
+        return reverse(head,f,f.next);
     }
 }
