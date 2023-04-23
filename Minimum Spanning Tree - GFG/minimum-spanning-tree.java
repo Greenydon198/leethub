@@ -34,69 +34,66 @@ public class Main{
 // User function Template for Java
 
 class Solution{
-	static int spanningTree(int n, int E, int edges[][]){
+	static int spanningTree(int n, int E, int edge[][]){
 	    // Code Here. 
 	    
-	    ArrayList<int[]> graph[] = new ArrayList[n];
-	    for(int i=0;i<n;i++)
-	        graph[i] = new ArrayList<>();
+	    int graph[][] = adj_matrix(edge,n);
+	    
+	    int key[] = new int[n];
+	    int par[] = new int[n];
+	    boolean vis[] = new boolean[n];
+	    
+	    key[0] = 0;
+	    par[0] = -1;
+	    
+	    for(int i=1;i<n;i++){
+	        key[i] = Integer.MAX_VALUE;
+	    }
+	    
+	    for(int k=0;k<n;k++){
 	        
-	   for(int i[]:edges){
-	       graph[i[0]].add(new int[]{i[1],i[2]});
-	       graph[i[1]].add(new int[]{i[0],i[2]});
-	   }
-	   
-	   //bfs(graph);
-	    return bfs(graph);
-	}
-	
-	static int bfs(ArrayList<int[]> graph[]){
-	    
-	    PriorityQueue<pair> pq = new PriorityQueue<>();
-	    
-	    for(int i[]:graph[0]){
-	        pq.add(new pair(i[0],i[1]));
+	        int ind = min_ind(key,vis);
+	        
+	        vis[ind] = true;
+	        
+	        for(int i=0;i<n;i++){
+	            if(graph[ind][i]!=0 && !vis[i] && graph[ind][i]<key[i]){
+	                key[i] = graph[ind][i];
+	                par[i] = ind;
+	            }
+	        }
 	    }
 	    
 	    int ans = 0;
-	    boolean vis[] = new boolean[graph.length];
-	    vis[0] = true;
-	    
-	    while(pq.size()>0){
-	        int d = pq.peek().d;
-	       // int d = pq.peek().d;
-	        int w = pq.remove().w;
-	        
-	        if(vis[d])continue;
-	        vis[d] = true;
-	        ans += w;
-	        
-	        for(int i[]:graph[d]){
-	            if(!vis[i[0]])
-	                pq.add(new pair(i[0],i[1]));
-	        }
+	    for(int i:key){
+	        ans += i;
 	    }
 	    
 	    return ans;
 	}
+	
+	static int min_ind(int key[],boolean vis[]){
+	    
+	    int min_ind = -1;
+	    for(int i=0;i<key.length;i++){
+	        if(!vis[i]){
+	            if(min_ind==-1 || (key[min_ind]>key[i]))
+	                min_ind = i;
+	        }
+	    }
+	    
+	    return min_ind;
+	}
+	
+	static int[][] adj_matrix(int edge[][],int n){
+	    
+	    int graph[][] = new int[n][n];
+	    
+	    for(int i[]:edge){
+	        graph[i[0]][i[1]] = i[2];
+	        graph[i[1]][i[0]] = i[2];
+	    }
+	    
+	    return graph;
+	}
 }
-
-class pair implements Comparable<pair>{
-    // int s;
-    int d;
-    int w;
-    
-    pair(int dd,int ww){
-        // s = ss;
-        d = dd;
-        w = ww;
-    }
-    
-    public int compareTo(pair c){
-        return this.w - c.w;
-    }
-}
-
-
-
-
