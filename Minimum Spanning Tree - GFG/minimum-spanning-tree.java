@@ -34,66 +34,54 @@ public class Main{
 // User function Template for Java
 
 class Solution{
-	static int spanningTree(int n, int E, int edge[][]){
+	static int spanningTree(int n, int E, int edges[][]){
 	    // Code Here. 
+	    Arrays.sort(edges,(x,y)->x[2]-y[2]);
 	    
-	    int graph[][] = adj_matrix(edge,n);
+	    par = new int[n];
+	    size = new int[n];
 	    
-	    int key[] = new int[n];
-	    int par[] = new int[n];
-	    boolean vis[] = new boolean[n];
-	    
-	    key[0] = 0;
-	    par[0] = -1;
-	    
-	    for(int i=1;i<n;i++){
-	        key[i] = Integer.MAX_VALUE;
-	    }
-	    
-	    for(int k=0;k<n;k++){
-	        
-	        int ind = min_ind(key,vis);
-	        
-	        vis[ind] = true;
-	        
-	        for(int i=0;i<n;i++){
-	            if(graph[ind][i]!=0 && !vis[i] && graph[ind][i]<key[i]){
-	                key[i] = graph[ind][i];
-	                par[i] = ind;
-	            }
-	        }
+	    for(int i=0;i<n;i++){
+	        par[i] = i;
 	    }
 	    
 	    int ans = 0;
-	    for(int i:key){
-	        ans += i;
+	    for(int i[]:edges){
+	        int s = i[0];
+	        int d = i[1];
+	        int w = i[2];
+	        
+	        int rs = findroot(s);
+	        int rd = findroot(d);
+	        
+	        if(rs==rd)continue;
+	        
+	        if(size[rd]<size[rs]){
+	            int t = rs;
+	            rs = rd;
+	            rd = t;
+	        }
+	        
+	        union(rs,rd);
+	        
+	        ans += w;
 	    }
 	    
 	    return ans;
 	}
 	
-	static int min_ind(int key[],boolean vis[]){
-	    
-	    int min_ind = -1;
-	    for(int i=0;i<key.length;i++){
-	        if(!vis[i]){
-	            if(min_ind==-1 || (key[min_ind]>key[i]))
-	                min_ind = i;
-	        }
-	    }
-	    
-	    return min_ind;
-	}
-	
-	static int[][] adj_matrix(int edge[][],int n){
-	    
-	    int graph[][] = new int[n][n];
-	    
-	    for(int i[]:edge){
-	        graph[i[0]][i[1]] = i[2];
-	        graph[i[1]][i[0]] = i[2];
-	    }
-	    
-	    return graph;
-	}
+	static int par[];
+    static int size[];
+    
+    static int findroot(int r){
+        if(par[r]==r)return r;
+        
+        return par[r] = findroot(par[r]);
+    }
+    
+    static void union(int rs,int rd){
+        par[rd] = rs;
+        size[rs] += size[rd];
+    }
+    
 }
